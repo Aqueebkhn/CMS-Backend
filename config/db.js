@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-const {pool} = new pool({
+const pool = new pg.Pool({
     user: process.env.DB_USER,
     host: process.env.DB_HOST,
     database: process.env.DB_NAME,
@@ -12,8 +12,21 @@ const {pool} = new pool({
     port: process.env.DB_PORT,
 });
 
-db.connect();
+const connectPool = async () => {
+  // Test the database connection
+  pool.connect((err, client, release) => {
+    if (err) {
+      console.error("Error acquiring client", err.stack);
+      throw new Error("Database connection error");
+    } else {
+      console.log("Database connected successfully");
+      release();
+    }
+  });
+};
+
+connectPool();
 
 console.log("Connected to the database");
 
-export {pool};
+export default pool;
