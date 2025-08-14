@@ -3,7 +3,8 @@ import {
   registerUser,
   login,
   verifyToken,
-  generateToken
+  generateToken,
+  updateUserdetails
 } from '../controllers/authcontrollers.js'; // Add .js if using ES modules
 
 const router = express.Router();
@@ -13,5 +14,6 @@ router.post('/register', registerUser);
 router.post('/login', login);
 router.post('/verify', verifyToken);
 router.post('/generate-token', generateToken);
+router.post('/update', verifyToken, updateUserdetails);
 
 export default router;
