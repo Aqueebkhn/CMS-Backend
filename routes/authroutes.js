@@ -4,7 +4,8 @@ import {
   login,
   verifyToken,
   generateToken,
-  updateUserdetails
+  updateUserdetails,
+  getAllUsers
 } from '../controllers/authcontrollers.js'; // Add .js if using ES modules
 
 const router = express.Router();
@@ -15,5 +16,6 @@ router.post('/login', login);
 router.post('/verify', verifyToken);
 router.post('/generate-token', generateToken);
 router.post('/update', verifyToken, updateUserdetails);
+router.get('/usersdetails', verifyToken, getAllUsers);
 
 export default router;

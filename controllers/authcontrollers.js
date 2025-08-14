@@ -139,4 +139,17 @@ const updateUserdetails = async (req, res) => {
   }
 };
 
-export { registerUser, login, generateToken, verifyToken, updateUserdetails };
+const getAllUsers = async (req, res) => {
+  try{
+    if (req.user.role !== 'admin') {
+      return res.status(403).json({ message: 'Forbidden: Admins only' });
+    }
+    const users = await pool.query('SELECT id, name, email, role FROM users');
+    res.status(200).json(users.rows);
+  } catch (error) {
+    console.error('Get All Users Error:', error.message);
+    res.status(500).json({ message: 'Server error while fetching users' });
+  }
+}
+
+export { registerUser, login, generateToken, verifyToken, updateUserdetails, getAllUsers };
