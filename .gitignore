@@ -1,4 +1,5 @@
 node_modules/
+ATTENDANCE_SYSTEM.md/
 
 # Environment variables
 .env
